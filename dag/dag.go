@@ -69,7 +69,6 @@ func ParseQuery(filename string) (map[string][]string, error) {
 			cteNameTemp = ""
 		}
 
-		fmt.Println(line, cteName, sourceName)
 		dagMap[sourceName] = append(dagMap[sourceName], cteName)
 	}
 
@@ -96,7 +95,7 @@ func GenerateDAG(dag map[string][]string, dotFilename string, pngFilename string
 	}
 	file.WriteString("} \n")
 
-	cmd := exec.Command("dot", "-Tpng", "dag.dot", "-o", "dag.png")
+	cmd := exec.Command("dot", "-Tpng", dotFilename, "-o", pngFilename)
 	err = cmd.Run()
 	if err != nil {
 		return fmt.Errorf("error executing dot command: %w", err)
